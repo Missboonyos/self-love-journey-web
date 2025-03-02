@@ -1157,3 +1157,644 @@ export const LayoutAdmin = () => {
   );
 };
 ```
+
+## Step 12 NavBar & Design
+1. Create new folder: navbar under folder: components
+2. Create new file: Navbar.jsx under folder: navbar
+```js
+//rafce
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <div>Navbar</div>
+  )
+}
+
+export default Navbar
+```
+3. Use Navbar at file: Layout.jsx
+- revise these codes 
+```js
+//rafce
+import React from "react";
+import { Outlet } from "react-router";
+
+const Layout = () => {
+  return (
+    <div>
+      <h1>Main Nav</h1>
+      <hr />
+      <Outlet />
+    </div>
+  );
+};
+
+export default Layout;
+```
+to this one
+```js
+//rafce
+import Navbar from "@/components/ui/navbar/Navbar";
+import React from "react";
+import { Outlet } from "react-router";
+
+const Layout = () => {
+  return (
+    <div>
+      <Navbar />
+      <hr />
+      <Outlet />
+    </div>
+  );
+};
+
+export default Layout;
+```
+4. Use Navbar at file: LayoutAdmin.jsx
+- edit these codes
+```js
+//rafce
+import React from "react";
+import { Outlet } from "react-router";
+
+export const LayoutAdmin = () => {
+  return (
+    <div>
+      <h1>NavBar</h1>
+      <Outlet />
+    </div>
+  );
+};
+```
+
+to this one
+```js
+//rafce
+import Navbar from "@/components/ui/navbar/Navbar";
+import React from "react";
+import { Outlet } from "react-router";
+
+export const LayoutAdmin = () => {
+  return (
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
+  );
+};
+```
+5. Go to file: Navbar.jsx
+- edit code from this pattern to adjust navbar style; 
+flex, align in row when the screen is wide and align in column when the screen is narrow.
+```js
+//rafce
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <div>Navbar</div>
+  )
+}
+
+export default Navbar
+```
+to this one
+```js
+//rafce
+import React from "react";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 px-8 justify-between sm:flex-row gap-4">
+        
+        <h1>Logo</h1>
+        <h1>Search bar...</h1>
+        <h1>Profile...</h1>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+## Step 13 Create File: Logo.jsx and use Logo in Navbar.jsx
+1) under folder: components --> navbar, create a new file: Logo.jsx
+
+```js
+//rafce
+import React from 'react'
+
+const Logo = () => {
+  return (
+    <div>Logo</div>
+  )
+}
+
+export default Logo
+```
+
+2) Go to file: Navbar.jsx to edit Logo syntax
+```js
+//rafce
+import React from "react";
+import Logo from "./Logo";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 px-8 justify-between sm:flex-row gap-4">
+
+        <Logo />
+        <h1>Search bar...</h1>
+        <h1>Profile...</h1>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+3) Go to file: Logo.jsx and create button asChild, link to
+```js
+//rafce
+import React from "react";
+import { Button } from "../button";
+import { Link } from "react-router";
+
+const Logo = () => {
+  return (
+    //button จะไม่ render ตัวเอง แต่จะใช้ความสามารถของ Child
+    <Button asChild>
+      <Link to="/">Logo </Link>
+    </Button>
+  );
+};
+
+export default Logo;
+```
+
+## Step 14 Create file (new component): Searchbar.jsx under folder: components --> navbar
+1)  Type: rafce
+```js
+//rafce
+import React from 'react'
+
+const Searchbar = () => {
+  return (
+    <div>Searchbar</div>
+  )
+}
+
+export default Searchbar
+```
+
+2) Install shadcn https://ui.shadcn.com/docs/components/input
+- at Terminal: npx shadcn@latest add input
+
+3) Go back to file: Searchbar.jsx and edit codes to this one (using Input here)
+```js
+import React from 'react'
+import { Input } from '../input'
+
+//rafce
+const Searchbar = () => {
+  return (
+    <Input />
+  )
+}
+
+export default Searchbar
+```
+
+4) Go to Navbar.jsx to use Searchbar
+```js
+//rafce
+import React from "react";
+import Logo from "./Logo";
+import Searchbar from "./Searchbar";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 px-8 justify-between sm:flex-row gap-4">
+
+        <Logo />
+        <Searchbar />
+        <h1>Profile...</h1>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+5) Go to Searchbar.jsx to design search bar tab
+from this one
+```js
+import React from 'react'
+import { Input } from '../input'
+
+//rafce
+const Searchbar = () => {
+  return (
+    <Input />
+  )
+}
+
+export default Searchbar
+```
+
+to this one
+```js
+import React from 'react'
+import { Input } from '../input'
+
+//rafce
+const Searchbar = () => {
+  return (
+    <Input 
+    type='text'
+    placeholder="Search ..."
+    className='max-w-xs'
+    />
+  )
+}
+
+export default Searchbar
+```
+## Step 15 Create dropdown menu (at menu: profile on the right-handed side of the page)
+1) install "dropdown menu" from https://ui.shadcn.com/docs/components/dropdown-menu
+   npx shadcn@latest add dropdown-menu
+   npm run dev
+2) copy & paste codes at
+3) create new component file: DropdownListMenu.jsx under folder: components --> navbar
+```js
+//rafce
+import React from 'react'
+
+const DropdownListMenu = () => {
+  return (
+    <div>DropdownListMenu</div>
+  )
+}
+
+export default DropdownListMenu
+```
+and copy these codes & paste at the top
+
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+```
+then copy these codes & paste after return
+
+```js
+   <DropdownMenu>
+      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+```
+Thus, the final version is as follows;
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+//rafce
+import React from "react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+4) go to navbar --> Navbar.jsx to use DropdownListMenu
+```js
+//rafce
+import React from "react";
+import Logo from "./Logo";
+import Searchbar from "./Searchbar";
+import DropdownListMenu from "./DropdownListMenu";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 px-8 justify-between sm:flex-row gap-4">
+
+        <Logo />
+        <Searchbar />
+        <DropdownListMenu />
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+## Step 16 Adjust dropdown list menu at DropdownListMenu.jsx
+1) Edit codes from this one to another
+
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+//rafce
+import React from "react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+ to this pattern
+
+ ```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+//rafce
+import React from "react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        
+        <p>icon</p>
+        <p>user icon</p>
+        
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+
+2) Go to https://lucide.dev/icons/ 
+- Search "left" --> align left --> see in action and copy codes below & paste them at file: DropdownListMenu.jsx
+
+```js
+import { AlignLeft } from 'lucide-react';
+```
+```js
+<AlignLeft />
+```
+Then, we'll get this pattern
+
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from 'lucide-react';
+
+//rafce
+import React from "react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        
+      <AlignLeft />
+        <p>user icon</p>
+        
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+
+3) Create new file: UserIcon.jsx under folder: components --> navbar
+```js
+//rafce
+import React from 'react'
+
+const UserIcon = () => {
+  return (
+    <div>UserIcon</div>
+  )
+}
+
+export default UserIcon
+```
+4) User UserIcon.jsx at DropdownListMenu.jsx
+
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from "lucide-react";
+
+//rafce
+import React from "react";
+import UserIcon from "./UserIcon";
+import { Button } from "../button";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+
+        <Button variant="outline">
+          <AlignLeft />
+          <UserIcon />
+        </Button>
+
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+
+5) Create new folder: utils, create new file: links.jsx
+- Declare variable : links & export
+```jsx
+//Variable "links" declaration
+// export = export variable: links to others.
+export const links = [
+    { href:'/', label: 'Home' },
+    { href:'/about', label: 'About' },
+]
+```
+
+6) Go to file: DropdownListMenu.jsx to import links
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from "lucide-react";
+
+//rafce
+import React from "react";
+import UserIcon from "./UserIcon";
+import { Button } from "../button";
+import { links } from "@/utils/links";
+import { Link } from "react-router";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+
+        <Button variant="outline">
+          <AlignLeft />
+          <UserIcon />
+        </Button>
+
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        {links.map((item, index) => {
+                //code body javaScript
+                //return only 1 element
+                // console.log(item.href)
+                return (
+                    <DropdownMenuItem key={index}>
+                        <Link to={item.href}>{item.label}</Link>                        
+                </DropdownMenuItem>
+                )
+            })
+        }
+
+       
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+7) Design user icon by using lucide at file: UserIcon.jsx
+
+- search icon at https://lucide.dev/icons/circle-user-round
+- copy code import { CircleUserRound } from 'lucide-react'; and paste it.
+- copy and paste code below 
+```js
+//rafce
+import React from 'react'
+import { CircleUserRound } from 'lucide-react';
+
+const UserIcon = () => {
+  return (
+    <CircleUserRound />
+  )
+}
+
+export default UserIcon
+```
+

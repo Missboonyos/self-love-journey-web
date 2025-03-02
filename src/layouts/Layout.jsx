@@ -1,11 +1,12 @@
 //rafce
+import Navbar from "@/components/ui/navbar/Navbar";
 import React from "react";
 import { Outlet } from "react-router";
 
 const Layout = () => {
   return (
     <div>
-      <h1>Main Nav</h1>
+      <Navbar />
       <hr />
       <Outlet />
     </div>

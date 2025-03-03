@@ -1797,4 +1797,102 @@ const UserIcon = () => {
 
 export default UserIcon
 ```
+## Step 17 Clerk Login (Google, FB)
+Clerk = User Management Platform (no need to do authentication coding)
+1) Sign in Clerk
+2) Go to Dashboard 
+3) Create my application
+4) Install library
+    npm install @clerk/clerk-react
+5) Create file: .env.local (the same level as package.json)
+6) Add Clerk Publishable Key (API key) to your file .env.local
+   VITE_CLERK_PUBLISHABLE_KEY=pk_test_Y29udGVudC1taXRlLTM4LmNsZXJrLmFjY291bnRzLmRldiQ
+7) Import the Clerk Publishable Key
+- to check if the publishable key is missing
+- by copying the following codes and paste at main.jsx
+```js
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
+```
+Then, the code in main.jsx will be 
+```js
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+8) Import by copying and pasting this syntax in main.jsx
+- import { ClerkProvider } from '@clerk/clerk-react'
+
+and copy this one and paste over < App /> in main.jsx
+```js 
+<ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <App />
+    </ClerkProvider>
+```
+
+Then, the codes will be
+```js
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { ClerkProvider } from "@clerk/clerk-react";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <App />
+    </ClerkProvider>
+  </StrictMode>
+);
+```
+
+## Step 18 Home.jsx (src --> pages --> Home.jsx)
+1. Go to https://dashboard.clerk.com/apps/app_2tnKAHwkNJfEnWQRv7CFFDik74B/instances/ins_2tnKAIJmX5N17xuuMe9qTqBx0B7
+2. import SignedIn, SignedOut from docs and paste them in Home.jsx
+```js
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+```
+3. Copy signInButton and paste it in < div>Home
+```js
+//rafce
+import React from "react";
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/clerk-react";
+
+const Home = () => {
+  return (
+    <div>
+      Home
+       {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+      {/* the sign in modal will be poped up instead */}
+      <SignInButton mode="modal" />
+    </div>
+  );
+};
+
+export default Home;
+```
 

@@ -1895,4 +1895,308 @@ const Home = () => {
 
 export default Home;
 ```
+4. Still work on file: Home.jsx, Adjust sign-in & sign-out button to display different buttons depending on sign-in & sign-out status 
+```js
+//rafce
+import React from "react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
+
+const Home = () => {
+  return (
+    <div>
+      Home
+      {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+      {/* the sign in modal will be poped up instead */}
+
+      {/* In case of not-yet-login */}
+      <SignedOut>
+      <SignInButton mode="modal" />
+      </SignedOut>
+
+      {/* In case of already-login  */}
+      <SignedIn>
+        <UserButton mode="modal" />
+      </SignedIn>
+
+    </div>
+  );
+};
+
+export default Home;
+```
+
+## Step 19 main.jsx -> assign the link to go to the home page after registration,sign-in & sign-out
+1. As it's linked to a strange path after log-in, Go to main.jsx to adjust the codes to assign the link to go to the home page after registration,sign-in & sign-out.
+```js
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { ClerkProvider } from "@clerk/clerk-react";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <ClerkProvider 
+    publishableKey={PUBLISHABLE_KEY} 
+    signInFallbackRedirectUrl="/"
+    signUpFallbackRedirectUrl="/"
+    afterSignOutUrl="/">
+      <App />
+    </ClerkProvider>
+  </StrictMode>
+);
+```
+
+## Step 20: Home.jsx -> Redesign buttons: Login, Register, logout
+```js
+//rafce
+import React from "react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
+
+const Home = () => {
+  return (
+    <div>
+      Home
+      {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+      {/* the sign in modal will be poped up instead */}
+      {/* In case of not-yet-login */}
+      <SignedOut>
+        <SignInButton mode="modal">
+          <button>Login</button>
+        </SignInButton>
+
+        <SignUpButton mode="modal">
+          <button>Register</button>
+        </SignUpButton>
+      </SignedOut>
+
+      {/* In case of already-login  */}
+      <SignedIn>
+        <UserButton mode="modal" />
+      </SignedIn>
+    </div>
+  );
+};
+
+export default Home;
+```
+
+## Step 21 Design Dropdown Button: File: DropdownListMenu.jsx & Home.jsx
+- to move sign-in, sign-up, sign-out to the left-handed menu (under dropdown list)
+
+1) Cut the import part from Home.jsx and paste them under import Link at file: DropdownListMenu.jsx
+2) Cut codes of < SignedOut> from Home.jsx
+3) Create the element < DropdownMenuItem></ DropdownMenuItem> 
+4) paste the copied codes : SignedOut group (sign-in & sign-up) within the  < DropdownMenuItem></ DropdownMenuItem> & adjust the format by adding DropdownMenuSeparator, DropdownMenuItem of each function; sign-in and sign-up
+
+** Updated codes in DropdownListMenu.jsx **
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from "lucide-react";
+
+//rafce
+import React from "react";
+import UserIcon from "./UserIcon";
+import { Button } from "../button";
+import { links } from "@/utils/links";
+import { Link } from "react-router";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      {/* Trigger = pressed button */}
+      {/* asChild = When rendering in DOM, element DropdownMenuTrigger won't be rendered */}
+      {/* But the children elements will be rendered */}
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <AlignLeft />
+          <UserIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        {links.map((item, index) => {
+          //code body JavaScript
+          //return only 1 element
+          // console.log(item.href)
+          return (
+            <DropdownMenuItem key={index}>
+              <Link to={item.href}>{item.label}</Link>
+            </DropdownMenuItem>
+          );
+        })}
+
+        <DropdownMenuSeparator />       
+        <SignedOut>
+          <DropdownMenuItem>
+            {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+            {/* the sign in modal will be poped up instead */}
+            {/* In case of not-yet-login */}
+            <SignInButton mode="modal">
+              <button>Login</button>
+            </SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <SignUpButton mode="modal">
+              <button>Register</button>
+            </SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+
+
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+5) Cut codes: SignedIn group in Home.jsx and paste in DropdownListMenu.jsx
+
+** Update code in Home.jsx **
+
+```js
+//rafce
+import React from "react";
+
+
+
+const Home = () => {
+  return (
+    <div>
+      Home    
+    </div>
+  );
+};
+
+export default Home;
+```
+
+** Update code in DropdownListMenu.jsx **
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from "lucide-react";
+
+//rafce
+import React from "react";
+import UserIcon from "./UserIcon";
+import { Button } from "../button";
+import { links } from "@/utils/links";
+import { Link } from "react-router";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      {/* Trigger = pressed button */}
+      {/* asChild = When rendering in DOM, element DropdownMenuTrigger won't be rendered */}
+      {/* But the children elements will be rendered */}
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <AlignLeft />
+          <UserIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        {links.map((item, index) => {
+          //code body JavaScript
+          //return only 1 element
+          // console.log(item.href)
+          return (
+            <DropdownMenuItem key={index}>
+              <Link to={item.href}>{item.label}</Link>
+            </DropdownMenuItem>
+          );
+        })}
+
+        <DropdownMenuSeparator />
+        {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+        {/* the sign in modal will be poped up instead */}
+        {/* In case of not-yet-login */}
+        <SignedOut>
+          <DropdownMenuItem>
+            <SignInButton mode="modal">
+              <button>Login</button>
+            </SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <SignUpButton mode="modal">
+              <button>Register</button>
+            </SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+
+        {/* In case of already-login  */}
+        <SignedIn>
+          <DropdownListMenu>
+            <UserButton />
+          </DropdownListMenu>
+        </SignedIn>
+
+        
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+
+
+
+
 

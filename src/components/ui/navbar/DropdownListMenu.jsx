@@ -15,34 +15,67 @@ import { Button } from "../button";
 import { links } from "@/utils/links";
 import { Link } from "react-router";
 
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
+
 const DropdownListMenu = () => {
   return (
     <DropdownMenu>
+      {/* Trigger = pressed button */}
+      {/* asChild = When rendering in DOM, element DropdownMenuTrigger won't be rendered */}
+      {/* But the children elements will be rendered */}
       <DropdownMenuTrigger asChild>
-
         <Button variant="outline">
           <AlignLeft />
           <UserIcon />
         </Button>
-
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         {links.map((item, index) => {
-                //code body javaScript
-                //return only 1 element
-                // console.log(item.href)
-                return (
-                    <DropdownMenuItem key={index}>
-                        <Link to={item.href}>{item.label}</Link>                        
-                </DropdownMenuItem>
-                )
-            })
-        }
+          //code body JavaScript
+          //return only 1 element
+          // console.log(item.href)
+          return (
+            <DropdownMenuItem key={index}>
+              <Link to={item.href}>{item.label}</Link>
+            </DropdownMenuItem>
+          );
+        })}
 
-       
+        <DropdownMenuSeparator />
+        {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+        {/* the sign in modal will be poped up instead */}
+        {/* In case of not-yet-login */}
+        <SignedOut>
+          <DropdownMenuItem>
+            <SignInButton mode="modal">
+              <button>Login</button>
+            </SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <SignUpButton mode="modal">
+              <button>Register</button>
+            </SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+
+        {/* In case of already-login  */}
+        <SignedIn>
+          <DropdownListMenu>
+            <UserButton />
+          </DropdownListMenu>
+        </SignedIn>
+
+        
       </DropdownMenuContent>
     </DropdownMenu>
   );

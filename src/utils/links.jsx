@@ -6,3 +6,5 @@ export const links = [
     { href:'/', label: 'Home' },
     { href:'/about', label: 'About' },
 ]
+
+// label = Result shown on the website

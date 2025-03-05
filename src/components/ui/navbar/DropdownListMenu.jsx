@@ -19,9 +19,11 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
+  SignOutButton,
   SignUpButton,
   UserButton,
 } from "@clerk/clerk-react";
+import SignOutLink from "./SignOutLink";
 
 const DropdownListMenu = () => {
   return (
@@ -70,11 +72,12 @@ const DropdownListMenu = () => {
 
         {/* In case of already-login  */}
         <SignedIn>
-          <DropdownListMenu>
+          <DropdownMenuItem>
             <UserButton />
-          </DropdownListMenu>
+            <SignOutButton />
+            {/* <SignOutLink /> */}
+          </DropdownMenuItem>
         </SignedIn>
-
         
       </DropdownMenuContent>
     </DropdownMenu>

@@ -2131,6 +2131,7 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
+  SignOutButton,
   SignUpButton,
   UserButton,
 } from "@clerk/clerk-react";
@@ -2180,13 +2181,14 @@ const DropdownListMenu = () => {
           </DropdownMenuItem>
         </SignedOut>
 
+        
         {/* In case of already-login  */}
         <SignedIn>
-          <DropdownListMenu>
+          <DropdownMenuItem>
             <UserButton />
-          </DropdownListMenu>
+            <SignOutButton />
+          </DropdownMenuItem>
         </SignedIn>
-
         
       </DropdownMenuContent>
     </DropdownMenu>
@@ -2231,6 +2233,645 @@ export default App;
 ```
 
 5. Create new file (new component):SignOutLink.jsx at folder: navbar
+```js
+//rafce 
+
+import React from 'react'
+
+const SignOutLink = () => {
+  return (
+    <div>SignOutLink</div>
+  )
+}
+
+export default SignOutLink
+```
+
+6. Go to file:DropdownListMenu.jsx
+- comment these 2 codes
+ {/* < UserButton /> */}
+{/* < SignOutButton /> */}
+
+- type code: SignOutLink and import it to this code session
+```js
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignLeft } from "lucide-react";
+
+//rafce
+import React from "react";
+import UserIcon from "./UserIcon";
+import { Button } from "../button";
+import { links } from "@/utils/links";
+import { Link } from "react-router";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
+import SignOutLink from "./SignOutLink";
+
+const DropdownListMenu = () => {
+  return (
+    <DropdownMenu>
+      {/* Trigger = pressed button */}
+      {/* asChild = When rendering in DOM, element DropdownMenuTrigger won't be rendered */}
+      {/* But the children elements will be rendered */}
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <AlignLeft />
+          <UserIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        {links.map((item, index) => {
+          //code body JavaScript
+          //return only 1 element
+          // console.log(item.href)
+          return (
+            <DropdownMenuItem key={index}>
+              <Link to={item.href}>{item.label}</Link>
+            </DropdownMenuItem>
+          );
+        })}
+
+        <DropdownMenuSeparator />
+        {/* mode=modal: after click SignIn, it won't be redirected to the page of sign-in. */}
+        {/* the sign in modal will be poped up instead */}
+        {/* In case of not-yet-login */}
+        <SignedOut>
+          <DropdownMenuItem>
+            <SignInButton mode="modal">
+              <button>Login</button>
+            </SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <SignUpButton mode="modal">
+              <button>Register</button>
+            </SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+
+        {/* In case of already-login  */}
+        <SignedIn>
+          <DropdownMenuItem>
+            {/* <UserButton /> */}
+            {/* <SignOutButton /> */}
+            <SignOutLink />
+          </DropdownMenuItem>
+        </SignedIn>
+        
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export default DropdownListMenu;
+```
+
+7. Go back to file: SignOutLink.jsx
+- to import SignOutButton from clerk and Toast from sonner
+
+*** Get stucked here ***
+
+# React-Hook-Form
+## Step 1 Create Restaurant Path
+1. Go to file: links.jsx under folder: utils
+2. Edit some codes
+```js
+
+//Variable "links" declaration
+// export = export variable: links to others.
+export const links = [
+    { href:'/', label: 'Home' },
+    { href:'/about', label: 'About' },
+    { href:'/admin/restaurant', label: 'Restaurant' },
+]
+
+// label = Result shown on the website
+```
+3. Got to pages\admin & Create new component file: Restaurant.jsx
+```js
+//rafce
+import React from 'react'
+
+const Restaurant = () => {
+  return (
+    <div>Restaurant</div>
+  )
+}
+
+export default Restaurant
+```
+4. Go to routes \ AppRoutes.jsx
+- Add new path "restaurant" and use + import component "Restaurant"
+
+```js
+//rafce
+import { BrowserRouter, Routes, Route, Outlet } from "react-router";
+
+import React from "react";
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Dashboard from "@/pages/admin/Dashboard";
+import Manage from "@/pages/admin/Manage";
+import Notfound from "@/pages/Notfound";
+import Layout from "@/layouts/Layout";
+import { LayoutAdmin } from "@/layouts/LayoutAdmin";
+import Restaurant from "@/pages/admin/Restaurant";
+
+const AppRoutes = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Public = Anyone can access these paths*/}
+        <Route element={<Layout/>}>
+          <Route path="/" element={ <Home /> } />
+          <Route path="about" element={<About />} />
+        </Route>
+
+        {/* Private = Log-in required to access these paths*/}
+        <Route path="admin" element={ < LayoutAdmin />} >          
+          <Route index element={< Dashboard />} />
+          <Route path="manage" element={< Manage />} />
+          <Route path="restaurant" element={< Restaurant />} />
+        </Route>
+
+        {/* Page Not Found */}
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default AppRoutes;
+```
+
+5. Go to Restaurant.jsx
+- edit < div> to < section >
+- add codes
+
+```js
+//rafce
+import React from 'react'
+
+const Restaurant = () => {
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>
+        Create Restaurant
+        </h1>
+        <div className='border p-8 rounded-md'>
+            test
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+## Step 2 Design common template style
+1. Go to index.coss
+- above layer base, go create @ layer components {}
+```js
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... */
+
+@layer components{
+  .container{
+    @apply px-8 mx-auto
+  }
+}
+
+@layer base {
+  :root {
+
+    --background: 0 0% 100%;
+
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 240 5.9% 10%;
+
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+
+    --input: 240 5.9% 90%;
+
+    --ring: 240 10% 3.9%;
+
+    --chart-1: 12 76% 61%;
+
+    --chart-2: 173 58% 39%;
+
+    --chart-3: 197 37% 24%;
+
+    --chart-4: 43 74% 66%;
+
+    --chart-5: 27 87% 67%;
+
+    --radius: 0.5rem
+  }
+  .dark {
+
+    --background: 240 10% 3.9%;
+
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+
+    --input: 240 3.7% 15.9%;
+
+    --ring: 240 4.9% 83.9%;
+
+    --chart-1: 220 70% 50%;
+
+    --chart-2: 160 60% 45%;
+
+    --chart-3: 30 80% 55%;
+
+    --chart-4: 280 65% 60%;
+
+    --chart-5: 340 75% 55%
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+```
+2. Go to layouts \ Layout.jsx
+- change < div> to < main> and add classname
+```js
+//rafce
+import Navbar from "@/components/ui/navbar/Navbar";
+import React from "react";
+import { Outlet } from "react-router";
+
+const Layout = () => {
+  return (
+    <main className="container">
+      <Navbar />
+      <hr />
+      <Outlet />
+    </main>
+  );
+};
+
+export default Layout;
+```
+
+3. Go to layouts \ LayoutAdmin.jsx
+- change < div> to < main> and add classname
+```js
+//rafce
+import Navbar from "@/components/ui/navbar/Navbar";
+import React from "react";
+import { Outlet } from "react-router";
+
+export const LayoutAdmin = () => {
+  return (
+    <main className="container">
+      <Navbar />
+      <Outlet />
+    </main>
+  );
+};
+```
+
+4. Go to components \ navbar \ Navbar.jsx
+- revise classname by removing px-8
+from this one
+```js
+//rafce
+import React from "react";
+import Logo from "./Logo";
+import Searchbar from "./Searchbar";
+import DropdownListMenu from "./DropdownListMenu";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 px-8 justify-between sm:flex-row gap-4">
+
+        <Logo />
+        <Searchbar />
+        <DropdownListMenu />
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+to this one
+```js
+//rafce
+import React from "react";
+import Logo from "./Logo";
+import Searchbar from "./Searchbar";
+import DropdownListMenu from "./DropdownListMenu";
+
+const Navbar = () => {
+  return (
+    <nav>
+      <div 
+      className="flex flex-col items-center 
+      py-4 justify-between sm:flex-row gap-4">
+
+        <Logo />
+        <Searchbar />
+        <DropdownListMenu />
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+## Step 3 Using React-Hook-Form
+1. Go to Restaurant.jsx
+- edit codes to be as follows:
+```js
+//rafce
+import React from 'react'
+
+const Restaurant = () => {
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>
+        Create Restaurant
+        </h1>
+
+        <div className='border p-8 rounded-md'>
+            <form>
+
+              <input type='text' name='menu' placeholder='menu'/>
+              <input type='number' name='price' placeholder='price' />
+              <input type='text' name='description' placeholder='description' />
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+
+2. Go to https://react-hook-form.com/get-started
+```bash
+npm install react-hook-form
+```
+
+3. Go to Restaurant.jsx
+- Copy code from web react-hook-form and paste in this file to import
+```js
+import { useForm } from "react-hook-form"
+```
+
+- And, coding of onSubmit...etc
+```js
+//rafce
+import React from 'react'
+import { useForm } from "react-hook-form"
+
+const Restaurant = () => {
+  const { register, handleSubmit} = useForm()
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+
+              <input 
+              {...register('menu')}
+              type='text' placeholder='menu'/>
+
+              <input 
+              {...register('price')}
+              type='number' placeholder='price' />
+
+              <input 
+              {...register('description')}
+              type='text' placeholder='description' />
+              
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+
+4. Go to https://ui.shadcn.com/docs/components/label
+- choose Use --legacy-peer-deps
+From Meta AI: This option is generally safer and more reliable than --force. However, keep in mind that you should still review the dependencies and ensure they're compatible with your project.
+
+```bash
+npx shadcn@latest add label
+npm run dev
+```
+
+5. Go to Restaurant.jsx
+- adjust codes; use label, Input, assign div
+
+```js
+//rafce
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+
+const Restaurant = () => {
+  const { register, handleSubmit} = useForm()
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+              
+              <div>
+                <label>Menu</label>
+
+              <Input 
+              {...register('menu')}
+              type='text' placeholder='menu' />
+              </div>
+
+              <Input 
+              {...register('price')}
+              type='number' placeholder='price' />
+
+              <Input 
+              {...register('description')}
+              type='text' placeholder='description' />
+
+              <button>Submit</button>
+              </div>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+
+6. Separate components
+- Go to src \ components
+- Create new folder: form and create new file: FormInputs.jsx
+
+```js
+//rafce
+import React from 'react'
+
+const FormInputs = () => {
+  return (
+    <div>FormInputs</div>
+  )
+}
+
+export default FormInputs
+```
+
+7. Go to file: Restaurant.jsx and FormInputs.jsx
+- Cut div code label: register menu and paste it in file: FormInputs.jsx
+- Import Label (from ui) by changing input to Input
+- Import Input (from ui) by deleting t and retype it.
+```js
+//rafce
+import React from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+
+const FormInputs = () => {
+  return (
+    
+      <div>
+        <Label>Menu</Label>
+        <Input
+        {...register("menu")} 
+        type="text" placeholder="menu" />
+      </div>
+    
+  );
+};
+
+export default FormInputs;
+```
+
+8. Go to file: Restaurant.jsx
+
+
+
+# MAP
+## Step 1 Install React Leaflet
+1. Go to https://react-leaflet.js.org/docs/v4/start-installation/
+
+```bash
+npm install react-leaflet@4.2.1
+```
+2. Create new folder: map under folder: components
+3. Create new file: Mainmap.jsx
+```js
+
+
+```
+
 
 
 

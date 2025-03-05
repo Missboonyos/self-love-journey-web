@@ -5,9 +5,9 @@ import { Outlet } from "react-router";
 
 export const LayoutAdmin = () => {
   return (
-    <div>
+    <main className="container">
       <Navbar />
       <Outlet />
-    </div>
+    </main>
   );
 };

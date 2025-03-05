@@ -9,6 +9,7 @@ import Manage from "@/pages/admin/Manage";
 import Notfound from "@/pages/Notfound";
 import Layout from "@/layouts/Layout";
 import { LayoutAdmin } from "@/layouts/LayoutAdmin";
+import Restaurant from "@/pages/admin/Restaurant";
 
 const AppRoutes = () => {
   return (
@@ -21,10 +22,10 @@ const AppRoutes = () => {
         </Route>
 
         {/* Private = Log-in required to access these paths*/}
-        <Route path="admin" element={ < LayoutAdmin />} >
-          
+        <Route path="admin" element={ < LayoutAdmin />} >          
           <Route index element={< Dashboard />} />
           <Route path="manage" element={< Manage />} />
+          <Route path="restaurant" element={< Restaurant />} />
         </Route>
 
         {/* Page Not Found */}

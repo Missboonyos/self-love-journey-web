@@ -2196,6 +2196,45 @@ const DropdownListMenu = () => {
 export default DropdownListMenu;
 ```
 
+## Step 22 Logout, Toast (ep6)
+1. Go to https://ui.shadcn.com/docs/components/toast
+2. Install Toast : npx shadcn@latest add toast
+    but it doesn't work for my project 
+    : The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead:
+    So, I do this way instead
+3. https://ui.shadcn.com/docs/components/sonner
+    npx shadcn@latest add sonner
+  - then, 1 file: sonner.jsx is created under src\components\ui
+  ✔ Checking registry.
+✔ Installing dependencies.
+✔ Created 1 file:
+  - src\components\ui\sonner.jsx
+4. Go to App.jsx
+  - copy and paste codes import & Toaster element from https://ui.shadcn.com/docs/components/sonner
+
+```js
+import React from "react";
+import { Button } from "./components/ui/button";
+import AppRoutes from "./routes/AppRoutes";
+import { Toaster } from "@/components/ui/sonner"
+
+function App() {
+  return (
+    <>
+      <AppRoutes />
+      <Toaster />
+    </>
+  );
+}
+
+export default App;
+```
+
+5. Create new file (new component):SignOutLink.jsx at folder: navbar
+
+
+
+
 
 
 

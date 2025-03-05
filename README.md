@@ -2855,6 +2855,120 @@ export default FormInputs;
 ```
 
 8. Go to file: Restaurant.jsx
+- To create dynamic form, add < FormInputs /> etc. and the codes are as follows:
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+
+const Restaurant = () => {
+  const { register, handleSubmit} = useForm()
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...'              
+              />
+
+              <FormInputs 
+                register={register} 
+                name='description' 
+                type='text' 
+                placeholder='Input Your Description...'              
+              />
+
+            
+
+              <button>Submit</button>
+              </div>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+
+9. Go to file: FormInputs.jsx
+- To create dynamic form, the codes are as follows:
+
+```js
+//rafce
+import React from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+
+// This is to receive props: register (destructuring) from Restaurant.jsx
+const FormInputs = ({ register, name, type, placeholder }) => {
+  return (
+    <div className="mb-2">
+      <Label htmlFor={name} className='capitalize'>{name}</Label>
+      <Input {...register(name)} type={type} placeholder={placeholder} />
+    </div>
+  );
+};
+
+export default FormInputs;
+
+```
+10. Go to file: FormInputs.jsx
+1) Install Shadcn textarea function for description input area
+```bash
+npx shadcn@latest add textarea
+```
+2) Create new file: TextAreaInput.jsx at components \ form
+- copy & paste codes from FormInputs.jsx
+- change const name to TextAreaInput
+-change input to TextAreaInput
+
+```js
+//rafce
+import React from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+
+// This is to receive props: register (destructuring) from Restaurant.jsx
+const TextAreaInput = ({ register, name, type, placeholder }) => {
+  return (
+    <div className="mb-2">
+      <Label htmlFor={name} className='capitalize'>{name}</Label>
+      <Textarea {...register(name)} 
+      rows = {5}
+      type={type} placeholder={placeholder} />
+    </div>
+  );
+};
+
+export default TextAreaInput;
+```
+3) Go to file: Restaurant.jsx
+- change input at description to TextAreaInput
 
 
 

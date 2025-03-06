@@ -2970,6 +2970,19 @@ export default TextAreaInput;
 3) Go to file: Restaurant.jsx
 - change input at description to TextAreaInput
 
+# Zod Validation
+
+## Step 1 Install Zod & React Hook Form Resolver
+1. Go to https://zod.dev/?id=installation
+```bash
+npm install zod
+```
+2. Go to https://www.npmjs.com/package/@hookform/resolvers
+```bash
+npm install @hookform/resolvers
+```
+
+
 
 
 # MAP

@@ -5,9 +5,24 @@ import { Input } from '@/components/ui/input';
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+import { restaurantSchema } from '@/utils/schemas';
+
+
 
 const Restaurant = () => {
-  const { register, handleSubmit} = useForm()
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState} = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
 
   const eatingSubmit = (data) => {
     // code body
@@ -27,22 +42,24 @@ const Restaurant = () => {
                 name='menu' 
                 type='text' 
                 placeholder='Input Your Menu Title...'
+                errors={errors}
                 />             
             
               <FormInputs 
                 register={register} 
                 name='price' 
                 type='number' 
-                placeholder='Input Your Price...'              
+                placeholder='Input Your Price...' 
+                errors={errors}             
               />
 
               <TextAreaInput 
                 register={register} 
                 name='description' 
                 type='text'                
-                placeholder='Input Your Menu Description...'              
-              />
-            
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />            
               </div>
               <button>Submit</button>
               </form>            

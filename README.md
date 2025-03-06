@@ -2981,6 +2981,177 @@ npm install zod
 ```bash
 npm install @hookform/resolvers
 ```
+3. Go to Restaurant.jsx
+- type import the followings;
+```bash
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers'
+```
+- use Zod to validate, eliminate duplicative type declarations.
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import TextAreaInput from '@/components/form/TextAreaInput';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+
+// zod is used for validation. The goal is to eliminate duplicative type declarations.
+const restaurantSchema = z.object({
+  menu: z.string().min(2, "Menu title must be > 2 characters"),
+  price: z.coerce.number(),
+  description: z.string().max(50, "Description must be < 50 characters"),
+});
+
+const Restaurant = () => {
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState} = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                errors={errors}
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...' 
+                errors={errors}             
+              />
+
+              <TextAreaInput 
+                register={register} 
+                name='description' 
+                type='text'                
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />            
+              </div>
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+4. Go to FormInput.jsx
+- to display error message and red box
+- add errors as a prop
+- add className
+```js
+//rafce
+import React from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+
+// This is to receive props: register (destructuring) from Restaurant.jsx
+const FormInputs = ({ register, name, type, placeholder, errors }) => {
+  return (
+    <div className="mb-2">
+      <Label htmlFor={name} className='capitalize'>{name}</Label>
+      <Input {...register(name)} type={type} 
+      placeholder={placeholder} 
+      className={`${errors[name] && "border-red-500"}`}
+      />
+      {
+      errors[name] && (
+        <p className="text-red-500 text-sm">{errors[name].message}</p>
+      )}
+    </div>
+  );
+};
+
+export default FormInputs;
+```
+
+5. Go to TextAreaInput.jsx
+- to display error message and red box
+- add errors as a prop
+- add className
+
+```js
+//rafce
+import React from "react";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+
+// This is to receive props: register (destructuring) from Restaurant.jsx
+const TextAreaInput = ({ register, name, type, placeholder, errors }) => {
+  return (
+    <div className="mb-2">
+      <Label htmlFor={name} className='capitalize'>{name}</Label>
+      <Textarea {...register(name)} 
+      rows = {5}
+      type={type} 
+      placeholder={placeholder}
+      className={`${errors[name] && "border-red-500"}`}
+      />
+      {
+      errors[name] && (
+        <p className="text-red-500 text-sm">{errors[name].message}</p>
+      )}
+    </div>
+  );
+};
+
+export default TextAreaInput;
+```
+## Step 2 Move Schema
+1. Go to Restaurant.jsx
+- cut const restaurantSchema
+2. Go to utils \ new file: schemas.jsx & paste code
+- add export before const
+- import z from zod --> import { z } from "zod";
+
+```js
+import { z } from "zod";
+
+
+// zod is used for validation. The goal is to eliminate duplicative type declarations.
+export const restaurantSchema = z.object({
+  menu: z.string().min(2, "Menu title must be > 2 characters"),
+  price: z.coerce.number(),
+  description: z.string().max(50, "Description must be < 50 characters"),
+});
+```
+3. Go back to Restaurant.jsx
+- import restaurantScheme from utils
+
+
+
+
 
 
 

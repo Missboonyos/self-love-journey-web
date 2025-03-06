@@ -5,13 +5,20 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
 // This is to receive props: register (destructuring) from Restaurant.jsx
-const TextAreaInput = ({ register, name, type, placeholder }) => {
+const TextAreaInput = ({ register, name, type, placeholder, errors }) => {
   return (
     <div className="mb-2">
       <Label htmlFor={name} className='capitalize'>{name}</Label>
       <Textarea {...register(name)} 
       rows = {5}
-      type={type} placeholder={placeholder} />
+      type={type} 
+      placeholder={placeholder}
+      className={`${errors[name] && "border-red-500"}`}
+      />
+      {
+      errors[name] && (
+        <p className="text-red-500 text-sm">{errors[name].message}</p>
+      )}
     </div>
   );
 };

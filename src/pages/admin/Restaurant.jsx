@@ -9,12 +9,13 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Description } from '@radix-ui/react-toast';
 import { restaurantSchema } from '@/utils/schemas';
+import Mainmap from '@/components/map/Mainmap';
 
 
 
 const Restaurant = () => {
   // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
-  const { register, handleSubmit, formState} = useForm({
+  const { register, handleSubmit, formState } = useForm({
     resolver: zodResolver(restaurantSchema),
   });
 
@@ -61,6 +62,10 @@ const Restaurant = () => {
                 errors={errors}            
               />            
               </div>
+
+              <Mainmap /> 
+
+
               <button>Submit</button>
               </form>            
         </div>        

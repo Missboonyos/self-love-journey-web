@@ -3148,9 +3148,82 @@ export const restaurantSchema = z.object({
 ```
 3. Go back to Restaurant.jsx
 - import restaurantScheme from utils
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import TextAreaInput from '@/components/form/TextAreaInput';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+import { restaurantSchema } from '@/utils/schemas';
 
 
 
+const Restaurant = () => {
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState} = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                errors={errors}
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...' 
+                errors={errors}             
+              />
+
+              <TextAreaInput 
+                register={register} 
+                name='description' 
+                type='text'                
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />            
+              </div>
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+
+## Skip ep 9-10, will be back
+## ep6 Toast no need to do
 
 
 
@@ -3163,12 +3236,231 @@ export const restaurantSchema = z.object({
 ```bash
 npm install react-leaflet@4.2.1
 ```
-2. Create new folder: map under folder: components
-3. Create new file: Mainmap.jsx
+
+## Step 2 New file: Mainmap.jsx (components \ map \ Mainmap.jsx)
+1. Create new folder: map under folder: components  
+2. Create new file: Mainmap.jsx
+components \ map \ Mainmap.jsx
+
 ```js
+//rafce = React Arrow Function Export Components
+import React from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
 
+const Mainmap = () => {
+  return (
+    <div>
+      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
+  );
+};
 
+export default Mainmap;
 ```
+3. Go to file: Restaurant.jsx
+- add map by importing component: Mainmap
+
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import TextAreaInput from '@/components/form/TextAreaInput';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+import { restaurantSchema } from '@/utils/schemas';
+import Mainmap from '@/components/map/Mainmap';
+
+const Restaurant = () => {
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState} = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                errors={errors}
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...' 
+                errors={errors}             
+              />
+
+              <TextAreaInput 
+                register={register} 
+                name='description' 
+                type='text'                
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />            
+              </div>
+
+              <Mainmap /> 
+
+
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+4. Go to Mainmap.jsx
+- delete Marker & Popup bcos there's an error when running
+- change codes from this one
+```js
+//rafce
+import React from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+const Mainmap = () => {
+  return (
+    <div>
+      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+```
+to this one
+```js
+//rafce
+import React from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+const Mainmap = () => {
+  return (
+    <div>
+      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+```
+- Follow step 3 Make sure your map container has a defined height (https://react-leaflet.js.org/docs/v4/start-setup/)
+- update codes
+```js
+//rafce
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMap, useMapEvents, Marker, Popup } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+// copy components from https://react-leaflet.js.org/docs/v4/example-events/
+// and paste outside the const Mainmap = () => {}  
+function LocationMarker({position, setPosition}) {
+  
+  const map = useMapEvents({
+    click(e) { 
+      console.log(e.latlng)    
+      setPosition(e.latlng)
+      map.flyTo(e.latlng)
+    },
+
+  })
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
+
+const Mainmap = () => {
+  //JavaScript
+  const [position, setPosition] = useState(null)
+  const DEFAULT_LOCATION = [13, 100]
+
+  return (
+    <div>
+      <h1 className="font-semibold mt-4 z-0">
+        Where are you?
+      </h1>
+      <MapContainer 
+      className="h-[50vh] rounded-md"
+      center={DEFAULT_LOCATION} 
+      zoom={7} 
+      scrollWheelZoom={true}
+      >
+
+        {/* TileLayer is the basic map. If we have other maps, we can paste link here */}
+        {/* url = map service */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker position={position} setPosition={setPosition} />
+
+
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+```
+
 
 
 

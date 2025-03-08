@@ -5,5 +5,8 @@ import { z } from "zod";
 export const restaurantSchema = z.object({
   menu: z.string().min(2, "Menu title must be > 2 characters"),
   price: z.coerce.number(),
-  description: z.string().max(50, "Description must be < 50 characters"),
-});
+  description: z.string().max(50, "Description must be < 50 characters"),  
+  lat: z.coerce.number(),
+  lng: z.coerce.number()
+  });
+

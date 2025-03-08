@@ -3458,7 +3458,455 @@ const Mainmap = () => {
   );
 };
 
+export default Mainmap
+```
+
+6. Go to Restaurant.jsx
+- เรียกใช้โดยการส่ง register at < Mainmap register={register} />
+
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import TextAreaInput from '@/components/form/TextAreaInput';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+import { restaurantSchema } from '@/utils/schemas';
+import Mainmap from '@/components/map/Mainmap';
+
+
+
+const Restaurant = () => {
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState } = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
+
+  const eatingSubmit = (data) => {
+    // code body
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                errors={errors}
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...' 
+                errors={errors}             
+              />
+
+              <TextAreaInput 
+                register={register} 
+                name='description' 
+                type='text'                
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />            
+              </div>
+
+              {/* เรียกใช้โดยการส่ง register,  */}
+              <Mainmap register={register} /> 
+
+
+              <button>Submit</button>
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+7. Go to file: Mainmap.jsx, Receive { register } at const Mainmap
+- Receive parameter; {register} that sent from Restaurant.jsx
+- And, receive param; Location even though Location is not yet sent from Restaurant.jsx
+- Aj. recap OR find first true
+- After coding < input lat & long>, go work on schema to add lat, long there.
+```js
+//rafce
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMap, useMapEvents, Marker, Popup } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+// copy components from https://react-leaflet.js.org/docs/v4/example-events/
+// and paste outside the const Mainmap = () => {}  
+function LocationMarker({position, setPosition}) {
+  
+  const map = useMapEvents({
+    // click:(e)=> {} can write code in this style (key:value)
+    click(e) { 
+      console.log(e.latlng) 
+        // setPosition is to update value to position. Record latitude, longtitude value
+      setPosition(e.latlng)
+      // flyTo = fly to any positions in the map. 
+      // Can add zoom number (scale) after e.latlng.
+      // map.flyTo(e.latlng, 7) 
+      // map.flyTo(e.latlng, 14)
+      map.flyTo(e.latlng)
+      
+    },
+
+  })
+
+  // check if position is null. If yes, return null
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
+
+// Receive parameter; {register} that sent from Restaurant.jsx
+// And, receive param; Location even though Location is not yet sent from Restaurant.jsx
+const Mainmap = ({register, location }) => {
+  //JavaScript codes
+  const [position, setPosition] = useState(null)
+  const DEFAULT_LOCATION = [13, 100];
+  console.log(location, Boolean(location))
+  // || OR = find first true
+  const roitai = location || DEFAULT_LOCATION
+  console.log(roitai)
+
+  return (
+    <div>
+      <input {...register('lat')} value={position ? position.lat : ""}/>
+      <input {...register('lng')} value={position ? position.lng : ""}/>
+
+      <h1 className="font-semibold mt-4 z-0">
+        Where are you?
+      </h1>
+      <MapContainer 
+      className="h-[50vh] rounded-md"
+      center={location || DEFAULT_LOCATION} 
+      zoom={7} 
+      scrollWheelZoom={true}
+      >
+
+        {/* TileLayer is the basic map. If we have other maps, we can paste link here */}
+        {/* url = service of map */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker position={position} setPosition={setPosition} />
+
+
+      </MapContainer>
+    </div>
+  );
+};
+
 export default Mainmap;
+```
+
+## Step 3 Adding latitude, longitude to update schema in file: uitls \ schemas.jsx
+1. Add lat, lng
+```js
+import { z } from "zod";
+
+
+// zod is used for validation. The goal is to eliminate duplicative type declarations.
+export const restaurantSchema = z.object({
+  menu: z.string().min(2, "Menu title must be > 2 characters"),
+  price: z.coerce.number(),
+  description: z.string().max(50, "Description must be < 50 characters"),  
+  lat: z.coerce.number(),
+  lng: z.coerce.number()
+  });
+
+  // .number ( ) = convert data to number
+```
+
+2. Go back to Mainmap.jsx
+- Aj delete these 2 values bcos he doesn't want us to use UseEffect at this moment
+value={position ? position.lat : ""}
+value={position ? position.lng : ""}
+
+So, update codes from this one
+```js
+//rafce
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMap, useMapEvents, Marker, Popup } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+// copy components from https://react-leaflet.js.org/docs/v4/example-events/
+// and paste outside the const Mainmap = () => {}  
+function LocationMarker({position, setPosition}) {
+  
+  const map = useMapEvents({
+    // click:(e)=> {} can write code in this style (key:value)
+    click(e) { 
+      console.log(e.latlng) 
+        // setPosition is to update value to position. Record latitude, longtitude value
+      setPosition(e.latlng)
+      // flyTo = fly to any positions in the map. 
+      // Can add zoom number (scale) after e.latlng.
+      // map.flyTo(e.latlng, 7) 
+      // map.flyTo(e.latlng, 14)
+      map.flyTo(e.latlng)
+      
+    },
+
+  })
+
+  // check if position is null. If yes, return null
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
+
+// Receive parameter; {register} that sent from Restaurant.jsx
+// And, receive param; Location even though Location is not yet sent from Restaurant.jsx
+const Mainmap = ({register, location }) => {
+  //JavaScript codes
+  const [position, setPosition] = useState(null)
+  const DEFAULT_LOCATION = [13, 100];
+  console.log(location, Boolean(location))
+  // || OR = find first true
+  const roitai = location || DEFAULT_LOCATION
+  console.log(roitai)
+
+  return (
+    <div>
+      <input {...register('lat')} value={position ? position.lat : ""}/>
+      <input {...register('lng')} value={position ? position.lng : ""}/>
+
+      <h1 className="font-semibold mt-4 z-0">
+        Where are you?
+      </h1>
+      <MapContainer 
+      className="h-[50vh] rounded-md"
+      center={location || DEFAULT_LOCATION} 
+      zoom={7} 
+      scrollWheelZoom={true}
+      >
+
+        {/* TileLayer is the basic map. If we have other maps, we can paste link here */}
+        {/* url = service of map */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker position={position} setPosition={setPosition} />
+
+
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+```
+
+to this one
+
+```js
+//rafce
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMap, useMapEvents, Marker, Popup } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
+
+// copy components from https://react-leaflet.js.org/docs/v4/example-events/
+// and paste outside the const Mainmap = () => {}  
+function LocationMarker({position, setPosition}) {
+  
+  const map = useMapEvents({
+    // click:(e)=> {} can write code in this style (key:value)
+    click(e) { 
+      console.log(e.latlng) 
+        // setPosition is to update value to position. Record latitude, longtitude value
+      setPosition(e.latlng)
+      // flyTo = fly to any positions in the map. 
+      // Can add zoom number (scale) after e.latlng.
+      // map.flyTo(e.latlng, 7) 
+      // map.flyTo(e.latlng, 14)
+      map.flyTo(e.latlng)
+      
+    },
+
+  })
+
+  // check if position is null. If yes, return null
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
+
+// Receive parameter; {register} that sent from Restaurant.jsx
+// And, receive param; Location even though Location is not yet sent from Restaurant.jsx
+const Mainmap = ({register, location }) => {
+  //JavaScript codes
+  const [position, setPosition] = useState(null)
+  const DEFAULT_LOCATION = [13, 100];
+  console.log(location, Boolean(location))
+  // || OR = find first true
+  const roitai = location || DEFAULT_LOCATION
+  console.log(roitai)
+
+  return (
+    <div>
+      <input {...register('lat')} />
+      <input {...register('lng')} />
+
+      <h1 className="font-semibold mt-4 z-0">
+        Where are you?
+      </h1>
+      <MapContainer 
+      className="h-[50vh] rounded-md"
+      center={location || DEFAULT_LOCATION} 
+      zoom={7} 
+      scrollWheelZoom={true}
+      >
+
+        {/* TileLayer is the basic map. If we have other maps, we can paste link here */}
+        {/* url = service of map */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker position={position} setPosition={setPosition} />
+
+
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+```
+3. Go to Restaurant.jsx & Mainmap.jsx
+- add setValue={setValue} to < Mainmap register > to send it to Mainmap.jsx
+- go to Mainmap.jsx, and receive value at 
+  : const Mainmap
+  : LocationMarker
+  : function LocationMarker
+- work on other things in Mainmap.jsx
+
+```js
+//rafce
+import React, { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  useMapEvents,
+  Marker,
+  Popup,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+// copy components from https://react-leaflet.js.org/docs/v4/example-events/
+// and paste outside the const Mainmap = () => {}
+// click:(e)=> {} can write code in this style (key:value)
+function LocationMarker({ position, setPosition, setValue }) {
+  const map = useMapEvents({
+    click(e) {
+      // console.log(e.latlng);
+      setPosition(e.latlng);
+      map.flyTo(e.latlng);
+
+      if (setValue) {
+        setValue("lat, e.latlng.lat");
+        setValue("lng, e.latlng.lng");
+      }
+    },
+  });
+
+  // check if position is null. If yes, return null
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  );
+}
+
+// Receive parameter; {register} that sent from Restaurant.jsx
+// And, receive param; Location even though Location is not yet sent from Restaurant.jsx
+const Mainmap = ({ register, location, setValue }) => {
+  //JavaScript codes
+  const [position, setPosition] = useState(null);
+  const DEFAULT_LOCATION = [13, 100];
+  // console.log(location, Boolean(location));
+  // || OR = find first true
+  // const roitai = location || DEFAULT_LOCATION;
+  // && AND = find first false
+  const roitai = register && "OK";
+  console.log(roitai);
+
+  // if there's a register, do the function
+  return (
+    <div>
+      {register && (
+        <>
+          <input hidden {...register("lat")} />
+          <input hidden {...register("lng")} />
+        </>
+      )}
+
+      <h1 className="font-semibold mt-4 z-0">Where are you?</h1>
+
+      {/* To display lat, long on the webpage */}
+
+      {position && (
+        <p className="text-sm text-gray-600">
+          Coordinates : {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
+        </p>
+      )}
+
+      <MapContainer
+        className="h-[50vh] rounded-md"
+        center={location || DEFAULT_LOCATION}
+        zoom={7}
+        scrollWheelZoom={true}
+      >
+        {/* TileLayer is the basic map. If we have other maps, we can paste link here */}
+        {/* url = service of map */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker
+          position={position}
+          setPosition={setPosition}
+          setValue={setValue}
+        />
+      </MapContainer>
+    </div>
+  );
+};
+
+export default Mainmap;
+
 ```
 
 

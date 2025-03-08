@@ -15,7 +15,7 @@ import Mainmap from '@/components/map/Mainmap';
 
 const Restaurant = () => {
   // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue } = useForm({
     resolver: zodResolver(restaurantSchema),
   });
 
@@ -63,7 +63,8 @@ const Restaurant = () => {
               />            
               </div>
 
-              <Mainmap /> 
+              {/* เรียกใช้โดยการส่ง register,  */}
+              <Mainmap register={register} setValue={setValue} /> 
 
 
               <button>Submit</button>

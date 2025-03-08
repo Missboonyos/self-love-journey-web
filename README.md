@@ -4105,7 +4105,9 @@ const Restaurant = () => {
 export default Restaurant
 ```
 
-## Step 4 Go to Buttons.js,
+## Step 4 Go to Buttons.jsx
+- search icon from https://lucide.dev/icons/?focus=&search=rotate
+- update codes
 ```js
 //rafce
 import React from 'react'

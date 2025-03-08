@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Description } from '@radix-ui/react-toast';
 import { restaurantSchema } from '@/utils/schemas';
 import Mainmap from '@/components/map/Mainmap';
+import Buttons from '@/components/form/Buttons';
 
 
 
@@ -20,13 +21,15 @@ const Restaurant = () => {
   });
 
   // destructure errors to get error message
-  const { errors } = formState
+  const { errors, isSubmitting } = formState
   console.log(errors)
   // console.log(formState.errors.menu)
 
-
-  const eatingSubmit = (data) => {
+  console.log(isSubmitting)
+  const eatingSubmit = async (data) => {
     // code body
+    await new Promise((resolve)=> setTimeout(resolve, 3000))
+
     console.log(data)
   };
 
@@ -67,7 +70,7 @@ const Restaurant = () => {
               <Mainmap register={register} setValue={setValue} /> 
 
 
-              <button>Submit</button>
+              <Buttons text="create restaurant" />
               </form>            
         </div>        
     </section>

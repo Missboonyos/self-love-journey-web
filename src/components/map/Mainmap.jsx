@@ -21,8 +21,8 @@ function LocationMarker({ position, setPosition, setValue }) {
       map.flyTo(e.latlng);
 
       if (setValue) {
-        setValue("lat, e.latlng.lat");
-        setValue("lng, e.latlng.lng");
+        setValue("lat", e.latlng.lat);
+        setValue("lng", e.latlng.lng);
       }
     },
   });

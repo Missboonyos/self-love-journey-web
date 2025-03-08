@@ -69,8 +69,11 @@ const Restaurant = () => {
               {/* เรียกใช้โดยการส่ง register,  */}
               <Mainmap register={register} setValue={setValue} /> 
 
-
-              <Buttons text="create restaurant" />
+              <Buttons 
+              text="create restaurant" 
+              isPending={isSubmitting}
+              type="submit"
+              />
               </form>            
         </div>        
     </section>

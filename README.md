@@ -1,11 +1,10 @@
 # SELF-LOVE-JOURNEY-WEB
 
-## Step 1 Create Project File & Open File in VS Code
-
+## Step 2.1 Create Project File & Open File in VS Code.2
 
 << Work on window terminal >>
-1. Create folder in your assigned drive/folder
-2. Go to explorer taskbar --> click --> type 'cmd' to open terminal
+2.1. Create folder in your assigned drive/folder
+2.2 Go to explorer taskbar --> click --> type 'cmd' to open terminal
 3. Command: npm create vite@latest
 4. You may see the messages below, type y to proceed
         Need to install the following packages:
@@ -52,8 +51,8 @@ Then, the website http://localhost:5173/ will display on browser.
 
 
 ## Step 2 Go to file: package.json
-1. Look at section "scripts"
-- This section is about the scripts that instruct the computer to run program.
+2.1. Look at section "scripts"
+-.2This section is about the scripts that instruct the computer to run program.
 - From the sample below, 
   Key = dev
   Value = vite
@@ -72,24 +71,23 @@ Then, the website http://localhost:5173/ will display on browser.
 --> The contents in this file will be displayed on the website
 
 ```plaintext
-1. Delete all data in this file (ctrl+A+delete)
-2. Write the following function;
+2.1. Delete all data in this file (ctrl+A+delete)
+2.2 Write the following function;
     : App is a component
     : How to name a component: Start with Capital letter
-    : Export only 1 element to run the program
-      - This file "App.jsx" is the parent file.
+    : Export only 2.1 element to run the program
+      - This file ".2pp.jsx" is the parent file.
       - The children files will operate by using the codes in this file.
 
-EX1: Return 1 element
-======code structure======
+EX1: Return 2.1 element
+======code st.2ucture======
 ```
 ```js
 function App () {
     // Code body
     // JavaScript
-    // Function will return in jsx & return only 1 element*.
-    // * 1 element = <> </> which is called "empty fragment"
-
+    // Function will return in jsx & return only 2.1 element*.
+    // * 2.1 element = <> </> which is called "emp.2y fragment".2
 return <h1>Hello</h1>
 }
 
@@ -100,8 +98,7 @@ export default App
 
 
 EX2: Test return 2 elements & How to fix the problem
-- This structure creates errors since we can return only 1 element.
-
+- This structure creates errors since we can return only 2.1 element..2
 ======code structure======
 ```
 ```js
@@ -118,7 +115,7 @@ export default App
 ======End code structure======
 
 
-- Solution: Fix the error by grouping tag h1 & p into 1 element under the empty fragment or tag div, tag section
+- Solution: Fix the error by grouping tag h1 & p into 2.1 element under the empty fragment or tag div, tag sectio.2
 ======code structure======
 ```
 ```js
@@ -157,8 +154,8 @@ export default App
 Delete all the content here to reset the format of web app display
 
 ## Step 5 Go back to file: App.jsx
-1. Delete all the content
-2. type rafce (write function in arrow function style)
+2.1. Delete all the content
+2.2 type rafce (write function in arrow function style)
 
 ```js
 import React from 'react'
@@ -173,9 +170,9 @@ export default App
 ```
 ## Step 6 Install shadcn 
 ```plaintext
-1. Go to https://ui.shadcn.com/docs/installation/vite 
-2. On the Installation: Vite, skip step 1 and continue step 2
-    - copy command: npm install -D tailwindcss postcss autoprefixer
+2.1. Go to https://ui.shadcn.com/docs/installation/vite 
+2.2 On the Installation: Vite, skip step 2.1 and continue step 2
+    - copy command: npm install -D tailwi.2dcss postcss autoprefixer
     - paste it in terminal
 3. npx tailwindcss init -p
 4. Go on step 4 Add this import header in your main css file, src/index.css in our case:
@@ -261,15 +258,15 @@ export default defineConfig({
 
 ## Step 7 Install React-Router
 ```plaintext
-1. Go to this web https://reactrouter.com/start/library/installation
-2. in terminal -> npm i react-router
+2.1. Go to this web https://reactrouter.com/start/library/installation
+2.2 in terminal -> npm i react-router
 3. in terminal -> npm run dev
 ```
 
 ## Step 8 Routes, Paths
 ```plaintext
-1. Go to https://reactrouter.com/start/library/routing
-2. Go to folder: src, then create a new folder: routes (to store paths)
+2.1. Go to https://reactrouter.com/start/library/routing
+2.2 Go to folder: src, then create a new folder: routes (to store paths)
 3. Under folder: routes, create new file: AppRoutes.jsx
 4. In this file: AppRoutes.jsx, type rafce
 
@@ -347,8 +344,8 @@ export default App;
 ## Step 9 Go to doc https://reactrouter.com/start/library/routing & work on file: AppRoutes.jsx
 
 ```plaintext
-1. Copy import { BrowserRouter, Routes, Route } from "react-router";
-2. Paste it on the top in file: AppRoutes.jsx
+2.1. Copy import { BrowserRouter, Routes, Route } from "react-router";
+2.2 Paste it on the top in file: AppRoutes.jsx
 ```
 
 ```js
@@ -397,8 +394,7 @@ const AppRoutes = () => {
 export default AppRoutes;
 ```
 ## Step 10 Creating Route Paths at file: AppRoutes.jsx
-1. Create route paths: Public, Private & PageNotFound as follows:
-
+2.1. Create route paths: Public, Private & PageNotFound as follows:.2
 ```js
 //rafce
 import { BrowserRouter, Routes, Route } from "react-router";
@@ -517,8 +513,8 @@ export default AppRoutes;
 ```
 
 4. Design the children path by
-1) Creating new folder: pages under the folder: src
-2) Creating new file: Home.jsx (component file)
+2.1) Creating new folder: pages under the folder: src
+2.2 Creating new file: Home.jsx (component file)
 
 ```js
 //rafce
@@ -944,8 +940,8 @@ export default AppRoutes;
 ```
 
 ## Step 11 Creating Layout Template at folder: src
-1) Create a new folder: layouts
-2) Create a new file: Layout.jsx & type rafce
+2.1) Create a new folder: layouts
+2.2 Create a new file: Layout.jsx & type rafce
 
 ```js
 //rafce
@@ -1159,8 +1155,8 @@ export const LayoutAdmin = () => {
 ```
 
 ## Step 12 NavBar & Design
-1. Create new folder: navbar under folder: components
-2. Create new file: Navbar.jsx under folder: navbar
+2.1. Create new folder: navbar under folder: components
+2.2 Create new file: Navbar.jsx under folder: navbar
 ```js
 //rafce
 import React from 'react'
@@ -1282,8 +1278,7 @@ const Navbar = () => {
 export default Navbar;
 ```
 ## Step 13 Create File: Logo.jsx and use Logo in Navbar.jsx
-1) under folder: components --> navbar, create a new file: Logo.jsx
-
+2.1) under folder: components --> navbar, create a new file: Logo.jsx.2
 ```js
 //rafce
 import React from 'react'
@@ -1341,8 +1336,8 @@ export default Logo;
 ```
 
 ## Step 14 Create file (new component): Searchbar.jsx under folder: components --> navbar
-1)  Type: rafce
-```js
+2.1)  Type: rafce
+`.2`js
 //rafce
 import React from 'react'
 
@@ -1433,8 +1428,8 @@ const Searchbar = () => {
 export default Searchbar
 ```
 ## Step 15 Create dropdown menu (at menu: profile on the right-handed side of the page)
-1) install "dropdown menu" from https://ui.shadcn.com/docs/components/dropdown-menu
-   npx shadcn@latest add dropdown-menu
+2.1) install "dropdown menu" from https://ui.shadcn.com/docs/components/dropdown-menu
+ .2 npx shadcn@latest add dropdown-menu
    npm run dev
 2) copy & paste codes at
 3) create new component file: DropdownListMenu.jsx under folder: components --> navbar
@@ -1536,8 +1531,7 @@ export default Navbar;
 ```
 
 ## Step 16 Adjust dropdown list menu at DropdownListMenu.jsx
-1) Edit codes from this one to another
-
+2.1) Edit codes from this one to another.2
 ```js
 import {
   DropdownMenu,
@@ -1761,8 +1755,8 @@ const DropdownListMenu = () => {
 
         {links.map((item, index) => {
                 //code body javaScript
-                //return only 1 element
-                // console.log(item.href)
+                //return only 2.1 element
+                // console.log(.2tem.href)
                 return (
                     <DropdownMenuItem key={index}>
                         <Link to={item.href}>{item.label}</Link>                        
@@ -1799,8 +1793,8 @@ export default UserIcon
 ```
 ## Step 17 Clerk Login (Google, FB)
 Clerk = User Management Platform (no need to do authentication coding)
-1) Sign in Clerk
-2) Go to Dashboard 
+2.1) Sign in Clerk
+2.2 Go to Dashboard 
 3) Create my application
 4) Install library
     npm install @clerk/clerk-react
@@ -1871,7 +1865,7 @@ createRoot(document.getElementById("root")).render(
 ```
 
 ## Step 18 Home.jsx (src --> pages --> Home.jsx)
-1. Go to https://dashboard.clerk.com/apps/app_2tnKAHwkNJfEnWQRv7CFFDik74B/instances/ins_2tnKAIJmX5N17xuuMe9qTqBx0B7
+2.1. Go to https://dashboard.clerk.com/apps/app_2tnKAHwkNJfEnWQRv7CFFDik74B/instances/i.2s_2tnKAIJmX5N17xuuMe9qTqBx0B7
 2. import SignedIn, SignedOut from docs and paste them in Home.jsx
 ```js
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
@@ -1931,7 +1925,7 @@ export default Home;
 ```
 
 ## Step 19 main.jsx -> assign the link to go to the home page after registration,sign-in & sign-out
-1. As it's linked to a strange path after log-in, Go to main.jsx to adjust the codes to assign the link to go to the home page after registration,sign-in & sign-out.
+2.1. As it's linked to a strange path after log-in, Go to main.jsx to adjust the codes to assign t.2e link to go to the home page after registration,sign-in & sign-out.
 ```js
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -2002,7 +1996,7 @@ export default Home;
 ## Step 21 Design Dropdown Button: File: DropdownListMenu.jsx & Home.jsx
 - to move sign-in, sign-up, sign-out to the left-handed menu (under dropdown list)
 
-1) Cut the import part from Home.jsx and paste them under import Link at file: DropdownListMenu.jsx
+2.1) Cut the import part from Home.jsx and paste them under import Link at file: DropdownListMenu.j.2x
 2) Cut codes of < SignedOut> from Home.jsx
 3) Create the element < DropdownMenuItem></ DropdownMenuItem> 
 4) paste the copied codes : SignedOut group (sign-in & sign-up) within the  < DropdownMenuItem></ DropdownMenuItem> & adjust the format by adding DropdownMenuSeparator, DropdownMenuItem of each function; sign-in and sign-up
@@ -2052,8 +2046,8 @@ const DropdownListMenu = () => {
 
         {links.map((item, index) => {
           //code body JavaScript
-          //return only 1 element
-          // console.log(item.href)
+          //return only 2.1 element
+          // console.log(.2tem.href)
           return (
             <DropdownMenuItem key={index}>
               <Link to={item.href}>{item.label}</Link>
@@ -2154,8 +2148,8 @@ const DropdownListMenu = () => {
 
         {links.map((item, index) => {
           //code body JavaScript
-          //return only 1 element
-          // console.log(item.href)
+          //return only 2.1 element
+          // console.log(.2tem.href)
           return (
             <DropdownMenuItem key={index}>
               <Link to={item.href}>{item.label}</Link>
@@ -2199,18 +2193,18 @@ export default DropdownListMenu;
 ```
 
 ## Step 22 Logout, Toast (ep6)
-1. Go to https://ui.shadcn.com/docs/components/toast
-2. Install Toast : npx shadcn@latest add toast
+2.1. Go to https://ui.shadcn.com/docs/components/toast
+2.2 Install Toast : npx shadcn@latest add toast
     but it doesn't work for my project 
     : The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead:
     So, I do this way instead
 3. https://ui.shadcn.com/docs/components/sonner
     npx shadcn@latest add sonner
-  - then, 1 file: sonner.jsx is created under src\components\ui
-  ✔ Checking registry.
+  - then, 2.1 file: sonner.jsx is created under src\components\ui
+  ✔ Checki.2g registry.
 ✔ Installing dependencies.
-✔ Created 1 file:
-  - src\components\ui\sonner.jsx
+✔ Created 2.1 file:
+  - src\comp.2nents\ui\sonner.jsx
 4. Go to App.jsx
   - copy and paste codes import & Toaster element from https://ui.shadcn.com/docs/components/sonner
 
@@ -2299,8 +2293,8 @@ const DropdownListMenu = () => {
 
         {links.map((item, index) => {
           //code body JavaScript
-          //return only 1 element
-          // console.log(item.href)
+          //return only 2.1 element
+          // console.log(.2tem.href)
           return (
             <DropdownMenuItem key={index}>
               <Link to={item.href}>{item.label}</Link>
@@ -2349,9 +2343,9 @@ export default DropdownListMenu;
 *** Get stucked here ***
 
 # React-Hook-Form
-## Step 1 Create Restaurant Path
-1. Go to file: links.jsx under folder: utils
-2. Edit some codes
+## Step 2.1 Create Restaurant Path
+2.1. Go t.2 file: links.jsx under folder: utils
+2.2 Edit some codes
 ```js
 
 //Variable "links" declaration
@@ -2445,8 +2439,8 @@ const Restaurant = () => {
 export default Restaurant
 ```
 ## Step 2 Design common template style
-1. Go to index.coss
-- above layer base, go create @ layer components {}
+2.1. Go to index.coss
+-.2above layer base, go create @ layer components {}
 ```js
 @tailwind base;
 @tailwind components;
@@ -2485,8 +2479,7 @@ export default Restaurant
 
     --muted: 240 4.8% 95.9%;
 
-    --muted-foreground: 240 3.8% 46.1%;
-
+    --muted-foreground: 240 3.8% 46.2.1%;.2
     --accent: 240 4.8% 95.9%;
 
     --accent-foreground: 240 5.9% 10%;
@@ -2501,8 +2494,7 @@ export default Restaurant
 
     --ring: 240 10% 3.9%;
 
-    --chart-1: 12 76% 61%;
-
+    --chart-2.1: 12 76% 61%;.2
     --chart-2: 173 58% 39%;
 
     --chart-3: 197 37% 24%;
@@ -2553,8 +2545,7 @@ export default Restaurant
 
     --ring: 240 4.9% 83.9%;
 
-    --chart-1: 220 70% 50%;
-
+    --chart-2.1: 220 70% 50%;.2
     --chart-2: 160 60% 45%;
 
     --chart-3: 30 80% 55%;
@@ -2669,8 +2660,8 @@ export default Navbar;
 ```
 
 ## Step 3 Using React-Hook-Form
-1. Go to Restaurant.jsx
-- edit codes to be as follows:
+2.1. Go to Restaurant.jsx
+-.2edit codes to be as follows:
 ```js
 //rafce
 import React from 'react'
@@ -2937,8 +2928,8 @@ export default FormInputs;
 
 ```
 10. Go to file: FormInputs.jsx
-1) Install Shadcn textarea function for description input area
-```bash
+2.1) Install Shadcn textarea function for description input area
+`.2`bash
 npx shadcn@latest add textarea
 ```
 2) Create new file: TextAreaInput.jsx at components \ form
@@ -2972,9 +2963,9 @@ export default TextAreaInput;
 
 # Zod Validation
 
-## Step 1 Install Zod & React Hook Form Resolver
-1. Go to https://zod.dev/?id=installation
-```bash
+## Step 2.1 Install Zod & React Hook Form Resolver
+2.1. Go t.2 https://zod.dev/?id=installation
+`.2`bash
 npm install zod
 ```
 2. Go to https://www.npmjs.com/package/@hookform/resolvers
@@ -3129,8 +3120,8 @@ const TextAreaInput = ({ register, name, type, placeholder, errors }) => {
 export default TextAreaInput;
 ```
 ## Step 2 Move Schema
-1. Go to Restaurant.jsx
-- cut const restaurantSchema
+2.1. Go to Restaurant.jsx
+-.2cut const restaurantSchema
 2. Go to utils \ new file: schemas.jsx & paste code
 - add export before const
 - import z from zod --> import { z } from "zod";
@@ -3230,16 +3221,15 @@ export default Restaurant
 
 
 # MAP
-## Step 1 Install React Leaflet
-1. Go to https://react-leaflet.js.org/docs/v4/start-installation/
-
+## Step 2.1 Install React Leaflet
+2.1. Go t.2 https://react-leaflet.js.org/docs/v4/start-installation/.2
 ```bash
-npm install react-leaflet@4.2.1
-```
+npm install react-leaflet@4.2.2.1
+``.2
 
 ## Step 2 New file: Mainmap.jsx (components \ map \ Mainmap.jsx)
-1. Create new folder: map under folder: components  
-2. Create new file: Mainmap.jsx
+2.1. Create new folder: map under folder: components  
+2.2 Create new file: Mainmap.jsx
 components \ map \ Mainmap.jsx
 
 ```js
@@ -3626,8 +3616,8 @@ export default Mainmap;
 ```
 
 ## Step 3 Adding latitude, longitude to update schema in file: uitls \ schemas.jsx
-1. Add lat, lng
-```js
+2.1. Add lat, lng
+`.2`js
 import { z } from "zod";
 
 
@@ -3910,9 +3900,9 @@ export default Mainmap;
 
 # Buttons, Loading (EP.9 Roitai-Dev)
 
-## Step 1 Go to Restaurant.jsx
-1. Work on async, await function, const error (isSubmitting)
-2. Aj moved  < button>Submit</ button> to be a new component under folder:components \ form
+## Step 2.1 Go to Restaurant.jsx
+2.1. Work.2on async, await function, const error (isSubmitting)
+2.2 Aj moved  < button>Submit</ button> to be a new component under folder:components \ form
 ```js
 //rafce
 import FormInputs from '@/components/form/FormInputs';
@@ -3996,8 +3986,8 @@ export default Restaurant
 ```
 
 ## Step 2 New file: Buttons.jsx under Folder: components \ form
-1. Create a new file
-```js
+2.1. Create a new file
+`.2`js
 //rafce
 import React from 'react'
 
@@ -4135,6 +4125,272 @@ const Buttons = ({text, isPending, type}) => {
 export default Buttons
 ```
 
+# Category Selection: Dropdown List React-Hook-Form & Select Shadcn (EP.10)
+## Step 1
+1. Go to https://ui.shadcn.com/docs/components/select
+```bash
+npx shadcn@latest add select
+```
+
+## Step 2
+1. Go to Aj.Tam Github: EP 10 Categories https://github.com/tamphimai007/landmark-web/blob/main/README.md
+
+- create new file: categories.jsx under folder: utils
+- to copy icons & codes and paste them in this file: categories.jsx
+
+```js
+import {
+    Tent,
+    House,
+    Mountain,
+    Store,
+    Utensils,
+    Hotel,
+    Bed,
+  } from "lucide-react";
+  
+  export const categories = [
+    {
+      label: "camping",
+      icon: Tent,
+    },
+    {
+      label: "house",
+      icon: House,
+    },
+    {
+      label: "hotel",
+      icon: Hotel,
+    },
+    {
+      label: "hostel",
+      icon: Bed,
+    },
+    {
+      label: "moutain",
+      icon: Mountain,
+    },
+    {
+      label: "store",
+      icon: Store,
+    },
+    {
+      label: "food",
+      icon: Utensils,
+    },
+  ];
+```
+## Step 3
+1. go to pages \ admin \ Restaurant.jsx
+    - write code within the div (before mainmap & buttons) by typing "Select"
+2. create new component file --> components \ form \ CategoryInput.jsx
+
+```js
+//rafce
+import React from 'react'
+
+const CategoryInput = () => {
+  return (
+    <div>CategoryInput</div>
+  )
+}
+
+export default CategoryInput
+```
+## Step 4
+- Go back to Restaurant.jsx and call to use the component: CategoryInput at the "Select" we previously typed.
+
+```js
+//rafce
+import FormInputs from '@/components/form/FormInputs';
+import TextAreaInput from '@/components/form/TextAreaInput';
+import { Input } from '@/components/ui/input';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form } from 'react-router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Description } from '@radix-ui/react-toast';
+import { restaurantSchema } from '@/utils/schemas';
+import Mainmap from '@/components/map/Mainmap';
+import Buttons from '@/components/form/Buttons';
+import CategoryInput from '@/components/form/CategoryInput';
+
+
+
+const Restaurant = () => {
+  // formState is used for receiving & displaying errors that conflict with the conditions ie more than 2 characters. 
+  const { register, handleSubmit, formState, setValue } = useForm({
+    resolver: zodResolver(restaurantSchema),
+  });
+
+  // destructure errors to get error message
+  const { errors, isSubmitting } = formState
+  console.log(errors)
+  // console.log(formState.errors.menu)
+
+  console.log(isSubmitting)
+  const eatingSubmit = async (data) => {
+    // code body
+    await new Promise((resolve)=> setTimeout(resolve, 3000))
+
+    console.log(data)
+  };
+
+  return (
+    <section>
+        <h1 className='capitalize text-2xl font-semibold mb-4'>Create Restaurant</h1>
+        <div className='border p-8 rounded-md'>
+            <form onSubmit={handleSubmit(eatingSubmit)}>
+              <div className="grid md:grid-cols-2 gap-4 mt-4"> 
+
+                {/* This is to send property (prop) : register to FormInputs.jsx */}
+                <FormInputs 
+                register={register} 
+                name='menu' 
+                type='text' 
+                placeholder='Input Your Menu Title...'
+                errors={errors}
+                />             
+            
+              <FormInputs 
+                register={register} 
+                name='price' 
+                type='number' 
+                placeholder='Input Your Price...' 
+                errors={errors}             
+              />
+
+              <TextAreaInput 
+                register={register} 
+                name='description' 
+                type='text'                
+                placeholder='Input Your Menu Description...'  
+                errors={errors}            
+              />  
+
+              {/* To use/import component: CategoryInput */}
+              <CategoryInput 
+                name='category' 
+                register={register} 
+                setValue={setValue}
+              /> 
+
+              </div>
+
+              {/* เรียกใช้โดยการส่ง register,  */}
+              <Mainmap 
+                register={register} 
+                setValue={setValue} 
+              /> 
+
+              <Buttons 
+              text="create restaurant" 
+              isPending={isSubmitting}
+              type="submit"
+              />
+              </form>            
+        </div>        
+    </section>
+  )
+}
+
+export default Restaurant
+```
+## Step 5 CategoryInput.jsx
+1. Go to CategoryInput.jsx
+2. Receive parameters ({name, register, setValue})
+3. Go to https://ui.shadcn.com/docs/components/select
+- copy & paste codes: import and paste on the top part of CategoryInput.jsx
+- copy the codes < Select>...blah blah blah & paste at < div>Category< div/>
+
+From this code
+```js
+//rafce
+import React from 'react'
+
+const CategoryInput = ({name, register, setValue}) => {
+  // JavaScript
+  return <div>CategoryInput</div>
+};
+export default CategoryInput
+```
+
+Update to this one
+```js
+//rafce
+import React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "../ui/label";
+import { categories } from "@/utils/categories";
+
+const CategoryInput = ({ name, register, setValue }) => {
+  // JavaScript
+  return (
+    <div className="mb-2">
+      <input {...register(name)} />
+
+      <Label className="capitalize">{name}</Label>
+      <Select onValueChange={(value) => setValue(name, value)} required>
+        <SelectTrigger>
+          <SelectValue placeholder="Please Select Category" />
+        </SelectTrigger>
+
+        <SelectContent>
+          {categories.map((item) => {
+            // console.log(item.label);
+            //return only 1 element
+            return (
+              <SelectItem key={item.label} value={item.label}>
+                <span className="flex item-center gap-4">
+                  <item.icon />
+                  <p className="capitalize">{item.label}</p>
+                </span>
+              </SelectItem>
+            );
+          })}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
+export default CategoryInput;
+```
+
+## Step 6 Validation at Schemas.jsx 
+1. Go to Schemas.jsx
+2. Add category: 
+```js
+import { z } from "zod";
+
+
+// zod is used for validation. The goal is to eliminate duplicative type declarations.
+export const restaurantSchema = z.object({
+  menu: z.string().min(2, "Menu title must be > 2 characters"),
+  price: z.coerce.number(),
+  description: z.string().max(50, "Description must be < 50 characters"),  
+  category: z.string(),
+  lat: z.coerce.number(),
+  lng: z.coerce.number()
+  });
+
+```
+
+
+
+# React Hook Form
+Go to https://react-hook-form.com/docs/useform/setvalue
+```bash
+</> setValue: (name: string, value: unknown, config?: SetValueConfig) => void
+```
+This function allows you to dynamically set the value of a registered field and have the options to validate and update the form state. At the same time, it tries to avoid unnecessary rerender.
 
 
 

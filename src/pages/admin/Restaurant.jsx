@@ -11,6 +11,7 @@ import { Description } from '@radix-ui/react-toast';
 import { restaurantSchema } from '@/utils/schemas';
 import Mainmap from '@/components/map/Mainmap';
 import Buttons from '@/components/form/Buttons';
+import CategoryInput from '@/components/form/CategoryInput';
 
 
 
@@ -63,11 +64,22 @@ const Restaurant = () => {
                 type='text'                
                 placeholder='Input Your Menu Description...'  
                 errors={errors}            
-              />            
+              />  
+
+              {/* To use/import component: CategoryInput */}
+              <CategoryInput 
+                name='category' 
+                register={register} 
+                setValue={setValue}
+              /> 
+
               </div>
 
               {/* เรียกใช้โดยการส่ง register,  */}
-              <Mainmap register={register} setValue={setValue} /> 
+              <Mainmap 
+                register={register} 
+                setValue={setValue} 
+              /> 
 
               <Buttons 
               text="create restaurant" 

@@ -58,7 +58,7 @@ const Mainmap = ({ register, location, setValue }) => {
         </>
       )}
 
-      <h1 className="font-semibold mt-4 z-0">Where are you?</h1>
+      <h1 className="font-semibold mt-4">Where are you?</h1>
 
       {/* To display lat, long on the webpage */}
 
@@ -69,7 +69,7 @@ const Mainmap = ({ register, location, setValue }) => {
       )}
 
       <MapContainer
-        className="h-[50vh] rounded-md"
+        className="h-[50vh] rounded-md z-0"
         center={location || DEFAULT_LOCATION}
         zoom={7}
         scrollWheelZoom={true}

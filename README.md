@@ -4126,6 +4126,14 @@ export default Buttons
 ```
 
 # Category Selection: Dropdown List React-Hook-Form & Select Shadcn (EP.10)
+
+## React Hook Form
+Go to https://react-hook-form.com/docs/useform/setvalue
+```bash
+</> setValue: (name: string, value: unknown, config?: SetValueConfig) => void
+```
+This function allows you to dynamically set the value of a registered field and have the options to validate and update the form state. At the same time, it tries to avoid unnecessary rerender.
+
 ## Step 1
 1. Go to https://ui.shadcn.com/docs/components/select
 ```bash
@@ -4383,16 +4391,40 @@ export const restaurantSchema = z.object({
 
 ```
 
+# EP12 Install ExpressJS (Back-end)
 
-
-# React Hook Form
-Go to https://react-hook-form.com/docs/useform/setvalue
+## Step 1 Create new folder: server in Folder: Project
+1. open command prompt: cmd & check if node is already installed.
 ```bash
-</> setValue: (name: string, value: unknown, config?: SetValueConfig) => void
+node -v
 ```
-This function allows you to dynamically set the value of a registered field and have the options to validate and update the form state. At the same time, it tries to avoid unnecessary rerender.
-
-
+2. command to create package.json
+```plaintext
+What is package.json?
+package.json is a JSON file that lives in the root of a Node.js project. It holds important metadata about the project, including the project’s name, version, author, description, main file, scripts, and dependencies. It enables Node.js and npm (Node Package Manager) to manage your project’s dependencies and scripts efficiently.
+https://www.geeksforgeeks.org/what-is-package-json-in-node-js/
+```
+```bash
+npm init -y
+```
+```js
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+```
+3. open folder: server in VS code
+```batch
+code .
+```
 
 
 
